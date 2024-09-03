@@ -1,0 +1,39 @@
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.remainingDuration {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  right: 0;
+  bottom: 0;
+  margin: 10px 5px;
+  padding: 4px 8px;
+  border-radius: 10px;
+}
+.videoItemContainer {
+  position: relative;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+}
+
+.soundTrack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  background: black;
+  border-radius: 50%;
+  opacity: 0.5;
+}

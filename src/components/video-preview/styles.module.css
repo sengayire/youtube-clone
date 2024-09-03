@@ -1,0 +1,35 @@
+.circle {
+  background-color: #646464;
+  width: 5px; /* specify the radius */
+  height: 5px; /* specify the radius */
+  clip-path: circle();
+}
+.videoInfo {
+  color: #8d8d8d;
+  padding-top: 10px;
+}
+.videoViews {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  gap: 5px;
+  padding-top: 5px;
+}
+.videoInfoContainer {
+  padding-top: 10px;
+  display: flex;
+  gap: 20px;
+}
+
+.videoContainer {
+  width: 350px;
+  overflow: hidden;
+  margin: 20px;
+  position: relative;
+}
+
+.placeholderImage {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}

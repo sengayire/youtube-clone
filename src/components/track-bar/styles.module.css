@@ -1,0 +1,121 @@
+.trackBar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  border-radius: 15px;
+  /* height: 10px; */
+  bottom: 0;
+  position: relative;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  background: transparent;
+  position: absolute;
+  height: 2px;
+  background: var(--main-bg-color);
+}
+
+/* Thumb: webkit */
+.trackBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 15px;
+  width: 15px;
+  display: flex;
+  align-items: center;
+  border: none;
+  top: 0;
+  transition: 0.2s ease-in-out;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+/* Thumb: Firefox */
+.trackBar::-moz-range-thumb {
+  height: 6px;
+  width: 6px;
+  background-color: #f50;
+  background-size: cover;
+  border-radius: 50%;
+  border: none;
+  transition: 0.2s ease-in-out;
+}
+
+/* Hover, active & focus Thumb: Webkit */
+.trackBar::-webkit-slider-thumb:hover {
+  /* box-shadow: 0 0 0 10px rgba(255, 85, 0, 0.1); */
+  position: relative;
+  background: green;
+  padding-bottom: 10px;
+  border-radius: 50%;
+}
+.trackBar:active::-webkit-slider-thumb {
+  /* display: flex;
+  justify-content: center; */
+  position: relative;
+  /* align-items: center; */
+  background: blue;
+  padding-bottom: 10px;
+  border-radius: 50%;
+}
+.trackBar:focus::-webkit-slider-thumb {
+  /* box-shadow: 0 0 0 13px rgba(255, 85, 0, 0.2); */
+}
+
+/* Hover, active & focus Thumb: Firfox */
+
+.trackBar::-moz-range-thumb:hover {
+  box-shadow: 0 0 0 10px rgba(255, 85, 0, 0.1);
+  background: blue;
+}
+.trackBar:active::-moz-range-thumb {
+  box-shadow: 0 0 0 13px rgba(255, 85, 0, 0.2);
+  /* background: white; */
+}
+.trackBar:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 13px rgba(255, 85, 0, 0.2);
+}
+
+.controls {
+  position: absolute;
+  bottom: 0;
+  /* opacity: 0.5; */
+  width: 100%;
+  height: 2px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ccc;
+  opacity: 0.5;
+}
+
+.previewPopup {
+  position: absolute;
+  bottom: 30px;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.previewVideo {
+  width: 100px;
+  height: 56px;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Track: webkit browsers */
+.trackBar::-webkit-slider-runnable-track {
+  margin-top: 10px;
+}
+
+/* Track: Mozilla Firefox */
+.trackBar::-moz-range-track {
+  height: 5px;
+  /* background: #ccc; */
+  border-radius: 16px;
+}
