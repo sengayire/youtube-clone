@@ -16,6 +16,7 @@
 }
 .videoItemContainer {
   position: relative;
+  height: 200px;
 }
 
 .video {

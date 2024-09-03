@@ -1,11 +1,6 @@
-.main {
+.layoutContainer {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
-}
-.thumbnail{
-  width: 250px;
 }
