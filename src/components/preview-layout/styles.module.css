@@ -1,0 +1,20 @@
+.layoutContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.listContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.layoutHeader {
+  padding: 50px;
+  width: 100%;
+}
+
+.leftSideBar {
+  padding: 4%;
+  height: auto;
+}

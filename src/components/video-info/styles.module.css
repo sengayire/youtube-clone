@@ -5,7 +5,7 @@
 }
 
 .videoInfo {
-  color: #8d8d8d;
+  color: #c8c6c6;
   padding-top: 10px;
 }
 
@@ -22,4 +22,10 @@
   align-items: center;
   gap: 5px;
   padding-top: 5px;
+}
+
+.profilePicture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
