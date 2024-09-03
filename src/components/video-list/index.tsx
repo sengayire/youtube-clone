@@ -1,24 +1,12 @@
-import VideoPreview from '../video-preview';
+import { LitsType } from '@/types';
 import styles from './styles.module.css';
+import VideoPreview from '../video-preview';
 
-export type LitsType = {
-  id: number;
-  title: string;
-  thumbnailUrl: string;
-  duration: string;
-  uploadTime: string;
-  views: string;
-  author: string;
-  videoUrl: string;
-  description: string;
-  subscriber: string;
-  isLive: boolean;
-};
 export interface VideoListProps {
   list: LitsType[];
 }
 
-export const VideoList = ({ list }: VideoListProps) => {
+export function VideoList({ list }: VideoListProps) {
   return (
     <>
       <ul className={styles.listContainer}>
@@ -32,4 +20,4 @@ export const VideoList = ({ list }: VideoListProps) => {
       </ul>
     </>
   );
-};
+}

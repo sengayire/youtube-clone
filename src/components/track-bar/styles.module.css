@@ -94,11 +94,15 @@
 
 .previewPopup {
   position: absolute;
-  bottom: 30px;
+  bottom: 10px;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
   padding: 5px;
   border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
 
 .previewVideo {
@@ -106,6 +110,7 @@
   height: 56px;
   object-fit: cover;
   pointer-events: none;
+  display: inline-block;
 }
 
 /* Track: webkit browsers */
