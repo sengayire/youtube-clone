@@ -1,27 +1,22 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import styles from './styles.module.css';
 import { formatTime } from '@/utils';
 
 interface TrackBarProps {
   duration?: string | number | undefined | any;
-  currentTime?: number;
-  handleTrackbarChange?: (e?: any) => void;
-  handleTrackbarMouseMove?: (e?: any) => void;
   videoUrl?: string;
-  previewTime?: number;
-  previewPos?: number;
+  onTimeChange: (time: number) => void;
 }
 
 export default function TrackBar({
-  previewTime,
-  previewPos,
   duration = 0,
-  currentTime,
   videoUrl,
-  handleTrackbarChange,
-  handleTrackbarMouseMove,
+  onTimeChange,
 }: TrackBarProps) {
   const [isScrubbing, setIsScrubbing] = useState(false);
+  const [previewTime, setPreviewTime] = useState(0);
+  const [previewPos, setPreviewPos] = useState(0);
+  const [currentTime, setCurrentTime] = useState<number>(0);
 
   const handleTrackbarMouseEnter = () => {
     setIsScrubbing(true);
@@ -29,6 +24,20 @@ export default function TrackBar({
 
   const handleTrackbarMouseLeave = () => {
     setIsScrubbing(false);
+  };
+
+  const handleTrackbarMouseMove = (e: MouseEvent<HTMLInputElement>) => {
+    const trackbarWidth = e.currentTarget.clientWidth;
+    const clickPosition = e.nativeEvent.offsetX;
+    const time = (clickPosition / trackbarWidth) * duration;
+    setPreviewTime(time);
+    setPreviewPos(clickPosition);
+  };
+
+  const handleTrackbarChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newTime = parseFloat(e.target.value);
+    setCurrentTime(newTime);
+    onTimeChange(newTime);
   };
 
   return (
@@ -51,12 +60,13 @@ export default function TrackBar({
           style={{ left: `${previewPos}px` }}
         >
           <video
-            src={videoUrl}
-            className={styles.previewVideo}
             muted
+            className={styles.previewVideo}
             style={{ objectPosition: `${(previewTime / duration) * 100}% 0` }}
-          />
-          <div className={styles.timestamp}>{formatTime(currentTime)}</div>
+          >
+            <source src={videoUrl} type='video/mp4' />
+          </video>
+          <div className={styles.timestamp}>{formatTime(previewTime)}</div>
         </div>
       )}
     </div>

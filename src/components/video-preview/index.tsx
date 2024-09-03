@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styles from './styles.module.css';
 import TrackBar from '../track-bar';
-import { formatTime } from '@/utils';
 import VideoItem from '../video-item';
-import { LitsType } from '../video-list';
+import { LitsType } from '@/types';
+import { VideoInfo } from '../video-info';
 
 interface VideoPreviewProps {
   item: LitsType;
@@ -20,8 +20,6 @@ export default function VideoPreview({ item }: VideoPreviewProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [duration, setDuration] = useState(0);
-  const [previewTime, setPreviewTime] = useState(0);
-  const [previewPos, setPreviewPos] = useState(0);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -34,16 +32,16 @@ export default function VideoPreview({ item }: VideoPreviewProps) {
     setIsHovered(false);
     if (videoRef.current) {
       videoRef.current?.pause();
-      videoRef.current.currentTime = 0; // Reset to the beginning
-    } // Reset the video to the beginning
+      videoRef.current.currentTime = 0;
+    }
   };
 
   const handleTimeUpdate = () => {
-    setCurrentTime(videoRef?.current?.currentTime);
+    setCurrentTime(videoRef.current?.currentTime ?? 0);
   };
 
   const handleLoadedMetadata = () => {
-    setDuration(videoRef.current.duration);
+    setDuration(videoRef.current?.duration ?? 0);
   };
 
   useEffect(() => {
@@ -63,23 +61,14 @@ export default function VideoPreview({ item }: VideoPreviewProps) {
     };
   }, []);
 
-  const handleTrackbarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newTime = parseFloat(e.target.value);
+  const remainingTime = duration - currentTime;
+
+  const handleTimeChange = (time: number) => {
+    setCurrentTime(time);
     if (videoRef.current) {
-      videoRef.current.currentTime = newTime;
-      setCurrentTime(newTime);
+      videoRef.current.currentTime = time;
     }
   };
-  const handleTrackbarMouseMove = (e: ChangeEvent<HTMLInputElement>) => {
-    const trackbarWidth = e.target.clientWidth;
-    const clickPosition = e.nativeEvent.offsetX;
-    const time = (clickPosition / trackbarWidth) * duration;
-    setPreviewTime(time);
-    setPreviewPos(clickPosition);
-  };
-
-  const remainingTime = duration - currentTime;
-  console.log('videoRef', videoRef.current?.currentTime, duration, currentTime);
   return (
     <div
       className={styles.videoContainer}
@@ -96,32 +85,17 @@ export default function VideoPreview({ item }: VideoPreviewProps) {
         {isHovered && (
           <TrackBar
             duration={duration}
-            currentTime={currentTime}
             videoUrl={item.videoUrl}
-            handleTrackbarChange={handleTrackbarChange}
-            handleTrackbarMouseMove={handleTrackbarMouseMove}
-            previewTime={previewTime}
-            previewPos={previewPos}
+            onTimeChange={handleTimeChange}
           />
         )}
       </VideoItem>
-
-      <div className={styles.videoInfoContainer}>
-        <div>
-          <img src='/placeholder.webp' className={styles.placeholderImage} />
-        </div>
-        <div>
-          <h3> {item.title}</h3>
-          <div className={styles.videoInfo}>
-            <p>{item.author}</p>
-            <div className={styles.videoViews}>
-              <div>{item.views}</div>
-              <div className={styles.circle}></div>
-              <div>{item.uploadTime}</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <VideoInfo
+        title={item.title}
+        author={item.author}
+        views={item.views}
+        uploadTime={item.uploadTime}
+      />
     </div>
   );
 }

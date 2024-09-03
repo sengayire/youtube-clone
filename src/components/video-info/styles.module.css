@@ -1,0 +1,25 @@
+.videoInfoContainer {
+  padding-top: 10px;
+  display: flex;
+  gap: 20px;
+}
+
+.videoInfo {
+  color: #8d8d8d;
+  padding-top: 10px;
+}
+
+.circle {
+  background-color: #646464;
+  width: 5px; /* specify the radius */
+  height: 5px; /* specify the radius */
+  clip-path: circle();
+}
+
+.videoViews {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  gap: 5px;
+  padding-top: 5px;
+}
