@@ -1,0 +1,28 @@
+.searchInput {
+  width: 400px;
+  padding: 5px;
+  height: 5px;
+  background: none;
+  outline: none;
+  border: none;
+}
+.searchInputContainer {
+  border: gray solid 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  padding: 0 5px;
+  background: black;
+  outline: none;
+  height: 50px;
+}
+.searchInput:focus {
+  outline: none;
+}
+.searchIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 20px;
+}
