@@ -6,12 +6,14 @@ interface TrackBarProps {
   duration?: string | number | undefined | any;
   videoUrl?: string;
   onTimeChange: (time: number) => void;
+  onFocus: () => void;
 }
 
 export default function TrackBar({
   duration = 0,
   videoUrl,
   onTimeChange,
+  onFocus,
 }: TrackBarProps) {
   const [isScrubbing, setIsScrubbing] = useState(false);
   const [previewTime, setPreviewTime] = useState(0);
@@ -40,6 +42,10 @@ export default function TrackBar({
     onTimeChange(newTime);
   };
 
+  const handleOnFocus = () => {
+    onFocus();
+  };
+
   return (
     <div className={styles.controls}>
       <input
@@ -52,6 +58,7 @@ export default function TrackBar({
         onMouseEnter={handleTrackbarMouseEnter}
         onMouseLeave={handleTrackbarMouseLeave}
         className={styles.trackBar}
+        onFocus={handleOnFocus}
       />
 
       {isScrubbing && (

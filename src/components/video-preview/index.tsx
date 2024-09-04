@@ -1,10 +1,15 @@
-import React, { ReactEventHandler, useEffect, useRef, useState } from 'react';
+import React, {
+  ReactEventHandler,
+  SyntheticEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import styles from './styles.module.css';
 import TrackBar from '../track-bar';
 import VideoItem from '../video-item';
 import { LitsType } from '@/types';
 import { VideoInfo } from '../video-info';
-import { VideoPlaceholder } from '../video-placeholder';
 
 interface VideoPreviewProps {
   item: LitsType;
@@ -31,6 +36,7 @@ type VideoItemProps = VideoPreviewProps & (InteractiveProps | StaticProps);
  * @param item
  * @returns tsx
  */
+
 export default function VideoPreview({
   item,
   onVideoEnd,
@@ -39,9 +45,12 @@ export default function VideoPreview({
   onVideoSeek,
   mode = 'interactive',
 }: VideoItemProps) {
+  let timer: NodeJS.Timeout | number | undefined;
+
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [currentTime, setCurrentTime] = useState<number>(0);
+  const [trackInteracted, setTrackInteracted] = useState(false);
   const [duration, setDuration] = useState(0);
 
   const remainingTime = duration - currentTime;
@@ -49,11 +58,6 @@ export default function VideoPreview({
   const handleMouseEnter = () => {
     if (mode === 'interactive') {
       setIsHovered(true);
-      if (videoRef.current) {
-        setTimeout(() => {
-          videoRef?.current?.play();
-        }, 2000);
-      }
     }
   };
 
@@ -61,7 +65,9 @@ export default function VideoPreview({
     setIsHovered(false);
     if (videoRef.current) {
       videoRef.current?.pause();
-      videoRef.current.currentTime = 0;
+      if (!trackInteracted) {
+        videoRef.current.currentTime = 0;
+      }
     }
   };
 
@@ -72,6 +78,18 @@ export default function VideoPreview({
   const handleLoadedMetadata = () => {
     setDuration(videoRef.current?.duration ?? 0);
   };
+
+  useEffect(() => {
+    if (isHovered) {
+      console.log(isHovered);
+      timer = setTimeout(() => {
+        if (videoRef.current) {
+          videoRef?.current?.play();
+        }
+      }, 2000);
+    }
+    return () => clearInterval(timer);
+  }, [isHovered]);
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -96,6 +114,10 @@ export default function VideoPreview({
       videoRef.current.currentTime = time;
     }
   };
+
+  const handleSeek = (e: SyntheticEvent<HTMLVideoElement, Event>) => {
+    onVideoSeek?.(e);
+  };
   return (
     <div
       className={styles.videoContainer}
@@ -110,7 +132,7 @@ export default function VideoPreview({
         remainingTime={remainingTime}
         onVideoStart={onVideoStart}
         onVideoEnd={onVideoEnd}
-        onVideoSeek={onVideoSeek}
+        onVideoSeek={handleSeek}
         onVideoResume={onVideoResume}
       >
         {isHovered && (
@@ -118,6 +140,7 @@ export default function VideoPreview({
             duration={duration}
             videoUrl={item.videoUrl}
             onTimeChange={handleTimeChange}
+            onFocus={() => setTrackInteracted(true)}
           />
         )}
       </VideoItem>
