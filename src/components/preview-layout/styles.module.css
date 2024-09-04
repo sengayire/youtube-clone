@@ -31,3 +31,10 @@
   align-items: center;
   gap: 10px;
 }
+
+@media (max-width: 390px) {
+  .layoutHeader {
+    visibility: hidden;
+    padding: 0;
+  }
+}

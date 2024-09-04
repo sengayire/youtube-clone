@@ -58,22 +58,13 @@
 }
 .trackBar:focus::-webkit-slider-thumb {
   box-shadow: 0 0 0 13px rgba(109, 14, 1, 0.25);
-  /* background-color: var(--main-bg-color); */
 }
 
 /* Hover, active & focus Thumb: Firfox */
-
 .trackBar::-moz-range-thumb:hover {
   box-shadow: 0 0 0 10px rgba(255, 85, 0, 0.1);
   background: var(--main-bg-color);
 }
-.trackBar:active::-moz-range-thumb {
-  box-shadow: 0 0 0 13px rgba(255, 85, 0, 0.2);
-}
-.trackBar:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 13px rgba(255, 85, 0, 0.2);
-}
-
 .controls {
   position: absolute;
   bottom: 0;
