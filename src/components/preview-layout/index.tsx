@@ -11,7 +11,7 @@ type Props = {
 export default function PreviewLayout({ children }: Props) {
   return (
     <div className={styles.layoutContainer}>
-      <div className={styles.layoutHeader}>
+      <nav className={styles.layoutHeader}>
         <Image
           src='/happy-tube-logo-2.webp'
           width={250}
@@ -25,7 +25,7 @@ export default function PreviewLayout({ children }: Props) {
             <img src='/placeholder.webp' className={styles.profilePicture} />
           </div>
         </div>
-      </div>
+      </nav>
       <div className={styles.listContainer}>
         <div className={styles.leftSideBar}></div>
         <div className={styles.videoContainer}>{children}</div>
