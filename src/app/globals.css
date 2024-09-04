@@ -1,5 +1,6 @@
 :root {
   --main-bg-color: #f00;
+  --main--color: #f00;
 }
 
 * {
@@ -32,6 +33,13 @@ a {
 
 @media (prefers-color-scheme: dark) {
   html {
-    color-scheme: dark;
+    background: black;
+    color: white;
+  }
+}
+@media (prefers-color-scheme: light) {
+  html {
+    background: black;
+    color: white;
   }
 }

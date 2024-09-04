@@ -10,3 +10,9 @@
   width: 50px;
   border-radius: 50%;
 }
+
+@media (max-width: 390px) {
+  .videoContainer {
+    margin: 0;
+  }
+}
