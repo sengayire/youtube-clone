@@ -1,13 +1,19 @@
 import axios from 'axios';
 
+/**
+ * Api fetch function
+ * @returns array of video
+
+*/
 export const fetchAPI = async () => {
-  const url = process.env.YOUTUBE_ITEMS_URL;
+  const url = process.env.DATA_SOURCE_URL;
 
   if (!url) {
     throw new Error(
-      'YOUTUBE_ITEMS_URL is not defined in the environment variables.'
+      'DATA_SOURCE_URL is not defined in the environment variables.'
     );
   }
   const { data } = await axios.get(url);
+
   return data;
 };

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import styles from './styles.module.css';
 import { formatTime } from '@/utils';
 
@@ -7,6 +7,7 @@ interface TrackBarProps {
   videoUrl?: string;
   onTimeChange: (time: number) => void;
   onFocus: () => void;
+  currentTime: number;
 }
 
 export default function TrackBar({
@@ -14,11 +15,11 @@ export default function TrackBar({
   videoUrl,
   onTimeChange,
   onFocus,
+  currentTime,
 }: TrackBarProps) {
   const [isScrubbing, setIsScrubbing] = useState(false);
   const [previewTime, setPreviewTime] = useState(0);
   const [previewPos, setPreviewPos] = useState(0);
-  const [currentTime, setCurrentTime] = useState<number>(0);
 
   const handleTrackbarMouseEnter = () => {
     setIsScrubbing(true);
@@ -38,14 +39,20 @@ export default function TrackBar({
 
   const handleTrackbarChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newTime = parseFloat(e.target.value);
-    setCurrentTime(newTime);
+
     onTimeChange(newTime);
+
+    const progress = (currentTime / duration) * 100;
+
+    e?.target?.style?.setProperty(
+      'background',
+      `linear-gradient(to right, #f50 ${progress}%, #ccc ${progress}%)`
+    );
   };
 
   const handleOnFocus = () => {
     onFocus();
   };
-
   return (
     <div className={styles.controls}>
       <input
