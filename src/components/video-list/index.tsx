@@ -13,7 +13,7 @@ export function VideoList({ list }: VideoListProps) {
         {list?.map((item: LitsType, index: number) => {
           return (
             <li key={index} className={styles.videoList}>
-              <VideoPreview item={item} />
+              <VideoPreview mode='static' item={item} />
             </li>
           );
         })}
