@@ -10,7 +10,6 @@ import PreviewLayout from '@/components/preview-layout';
 
 export function VideoPreview() {
   const { data, isLoading } = useFetchVideo();
-  console.log('isLoading', data, isLoading);
 
   return (
     <PreviewLayout>

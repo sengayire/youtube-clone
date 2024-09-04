@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    YOUTUBE_ITEMS_URL: process.env.YOUTUBE_ITEMS_URL,
+    DATA_SOURCE_URL: process.env.DATA_SOURCE_URL,
   },
 };
 

@@ -141,6 +141,7 @@ export default function VideoPreview({
             videoUrl={item.videoUrl}
             onTimeChange={handleTimeChange}
             onFocus={() => setTrackInteracted(true)}
+            currentTime={currentTime}
           />
         )}
       </VideoItem>
