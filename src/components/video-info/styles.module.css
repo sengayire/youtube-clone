@@ -11,8 +11,8 @@
 
 .circle {
   background-color: #646464;
-  width: 5px; /* specify the radius */
-  height: 5px; /* specify the radius */
+  width: 5px;
+  height: 5px;
   clip-path: circle();
 }
 

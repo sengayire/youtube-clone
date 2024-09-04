@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ReactEventHandler, useEffect, useRef, useState } from 'react';
 import styles from './styles.module.css';
 import TrackBar from '../track-bar';
 import VideoItem from '../video-item';
@@ -8,6 +8,21 @@ import { VideoInfo } from '../video-info';
 interface VideoPreviewProps {
   item: LitsType;
 }
+interface InteractiveProps {
+  mode?: 'interactive';
+  onVideoStart?: () => void;
+  onVideoEnd?: () => void;
+  onVideoResume?: () => void;
+  onVideoSeek?: ReactEventHandler<HTMLVideoElement>;
+}
+interface StaticProps {
+  mode?: 'static';
+  onVideoStart?: never;
+  onVideoEnd?: never;
+  onVideoResume?: never;
+  onVideoSeek?: never;
+}
+type VideoItemProps = VideoPreviewProps & (InteractiveProps | StaticProps);
 
 /**
  *
@@ -15,16 +30,29 @@ interface VideoPreviewProps {
  * @param item
  * @returns tsx
  */
-export default function VideoPreview({ item }: VideoPreviewProps) {
+export default function VideoPreview({
+  item,
+  onVideoEnd,
+  onVideoResume,
+  onVideoStart,
+  onVideoSeek,
+  mode = 'interactive',
+}: VideoItemProps) {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [duration, setDuration] = useState(0);
 
+  const remainingTime = duration - currentTime;
+
   const handleMouseEnter = () => {
-    setIsHovered(true);
-    if (videoRef.current) {
-      videoRef.current.play();
+    if (mode === 'interactive') {
+      setIsHovered(true);
+      if (videoRef.current) {
+        setTimeout(() => {
+          videoRef?.current?.play();
+        }, 2000);
+      }
     }
   };
 
@@ -61,8 +89,6 @@ export default function VideoPreview({ item }: VideoPreviewProps) {
     };
   }, []);
 
-  const remainingTime = duration - currentTime;
-
   const handleTimeChange = (time: number) => {
     setCurrentTime(time);
     if (videoRef.current) {
@@ -81,6 +107,10 @@ export default function VideoPreview({ item }: VideoPreviewProps) {
         videoUrl={item.videoUrl}
         isHovered={isHovered}
         remainingTime={remainingTime}
+        onVideoStart={onVideoStart}
+        onVideoEnd={onVideoEnd}
+        onVideoSeek={onVideoSeek}
+        onVideoResume={onVideoResume}
       >
         {isHovered && (
           <TrackBar
