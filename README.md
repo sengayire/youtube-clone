@@ -1,4 +1,4 @@
-For the demo visit [Next.js](https://nextjs.org/)
+For the demo visit [Next.js](https://happy-tube.netlify.app/)
 
 ## Getting Started
 

@@ -4,6 +4,7 @@ import TrackBar from '../track-bar';
 import VideoItem from '../video-item';
 import { LitsType } from '@/types';
 import { VideoInfo } from '../video-info';
+import { VideoPlaceholder } from '../video-placeholder';
 
 interface VideoPreviewProps {
   item: LitsType;

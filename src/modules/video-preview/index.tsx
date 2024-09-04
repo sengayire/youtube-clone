@@ -9,11 +9,12 @@ import useFetchVideo from '@/hooks/use-fetch-video';
 import PreviewLayout from '@/components/preview-layout';
 
 export function VideoPreview() {
-  const { data } = useFetchVideo();
+  const { data, isLoading } = useFetchVideo();
+  console.log('isLoading', data, isLoading);
 
   return (
     <PreviewLayout>
-      <VideoList list={data} />
+      <VideoList list={data} isLoading={isLoading || !data} />
     </PreviewLayout>
   );
 }
