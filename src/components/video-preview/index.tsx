@@ -55,6 +55,9 @@ export default function VideoPreview({
 
   const remainingTime = duration - currentTime;
 
+  const progress = (currentTime / duration) * 100;
+  const element = document.querySelector('#trackBar');
+
   const handleMouseEnter = () => {
     if (mode === 'interactive') {
       setIsHovered(true);
@@ -79,9 +82,13 @@ export default function VideoPreview({
     setDuration(videoRef.current?.duration ?? 0);
   };
 
+  element?.setAttribute(
+    'style',
+    `background: linear-gradient(to right, #f50 ${progress}%, #ccc ${progress}%)`
+  );
+
   useEffect(() => {
     if (isHovered) {
-      console.log(isHovered);
       timer = setTimeout(() => {
         if (videoRef.current) {
           videoRef?.current?.play();
@@ -118,33 +125,36 @@ export default function VideoPreview({
   const handleSeek = (e: SyntheticEvent<HTMLVideoElement, Event>) => {
     onVideoSeek?.(e);
   };
+
   return (
     <div
       className={styles.videoContainer}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <VideoItem
-        ref={videoRef}
-        thumbnailUrl={item.thumbnailUrl}
-        videoUrl={item.videoUrl}
-        isHovered={isHovered}
-        remainingTime={remainingTime}
-        onVideoStart={onVideoStart}
-        onVideoEnd={onVideoEnd}
-        onVideoSeek={handleSeek}
-        onVideoResume={onVideoResume}
-      >
-        {isHovered && (
-          <TrackBar
-            duration={duration}
-            videoUrl={item.videoUrl}
-            onTimeChange={handleTimeChange}
-            onFocus={() => setTrackInteracted(true)}
-            currentTime={currentTime}
-          />
-        )}
-      </VideoItem>
+      <div className={styles.videoItemContainer}>
+        <VideoItem
+          ref={videoRef}
+          thumbnailUrl={item.thumbnailUrl}
+          videoUrl={item.videoUrl}
+          isHovered={isHovered}
+          remainingTime={remainingTime}
+          onVideoStart={onVideoStart}
+          onVideoEnd={onVideoEnd}
+          onVideoSeek={handleSeek}
+          onVideoResume={onVideoResume}
+        >
+          {isHovered && (
+            <TrackBar
+              duration={duration}
+              videoUrl={item.videoUrl}
+              onTimeChange={handleTimeChange}
+              onFocus={() => setTrackInteracted(true)}
+              currentTime={currentTime}
+            />
+          )}
+        </VideoItem>
+      </div>
       <VideoInfo
         title={item.title}
         author={item.author}

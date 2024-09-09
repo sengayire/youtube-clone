@@ -11,16 +11,17 @@ import { IoMdVolumeHigh, IoMdVolumeOff } from 'react-icons/io';
 interface VideoItemProps {
   thumbnailUrl: string;
   videoUrl: string;
-  isHovered: boolean;
-  remainingTime: number;
+  isHovered?: boolean;
+  remainingTime?: number;
   currentTime?: number;
   duration?: number;
-  children: ReactNode;
+  children?: ReactNode;
   interactive?: boolean;
   onVideoStart?: () => void;
   onVideoEnd?: () => void;
   onVideoResume?: () => void;
   onVideoSeek?: ReactEventHandler<HTMLVideoElement>;
+  controls?: boolean;
 }
 
 const VideoItem = forwardRef<HTMLVideoElement, VideoItemProps>(
@@ -37,6 +38,7 @@ const VideoItem = forwardRef<HTMLVideoElement, VideoItemProps>(
       onVideoSeek,
       duration,
       currentTime,
+      controls,
     }: VideoItemProps,
 
     ref
@@ -65,10 +67,11 @@ const VideoItem = forwardRef<HTMLVideoElement, VideoItemProps>(
           onSeeked={onVideoSeek}
           onPause={handlePause}
           poster={thumbnailUrl}
+          controls={controls}
         >
           <source src={videoUrl} type='video/mp4' />
         </video>
-        {isHovered && (
+        {isHovered && !controls && (
           <div className={styles.soundTrack} onClick={handleSoundClicked}>
             {isMuted ? <IoMdVolumeOff /> : <IoMdVolumeHigh />}
           </div>
@@ -80,11 +83,14 @@ const VideoItem = forwardRef<HTMLVideoElement, VideoItemProps>(
             className={styles.thumbnail}
           />
         )}
-        <div className={styles.remainingDuration}>
-          {formatTime(remainingTime)}
-        </div>
-
-        <div>{children}</div>
+        {!controls ? (
+          <>
+            <div className={styles.remainingDuration}>
+              {formatTime(remainingTime ?? 0)}
+            </div>
+            <div> {children}</div>
+          </>
+        ) : null}
       </div>
     );
   }

@@ -1,0 +1,33 @@
+.playerContainer {
+  width: 70%;
+}
+.gridLearn {
+  display: grid;
+  grid-template-areas:
+    'header header'
+    'sidebar content'
+    'footer footer';
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 100%;
+}
+.gridLearnOne {
+  grid-area: header;
+  background: red;
+  grid-column: 1/5;
+  height: 10rem;
+}
+.gridLearnTwo {
+  background: blue;
+  grid-area: content;
+  grid-column: 1 /3;
+}
+.gridLearnThree {
+  background: green;
+  grid-area: sidebar;
+  grid-column: -1/3;
+}
+.gridLearnFour {
+  background: yellow;
+  grid-area: footer;
+  grid-column: 1/5;
+}

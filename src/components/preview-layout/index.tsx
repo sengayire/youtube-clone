@@ -18,7 +18,7 @@ export default function PreviewLayout({ children }: Props) {
           height={50}
           alt='Happy Tube'
         />
-        <SearchInput />
+        <SearchInput placeholder='Search...' />
         <div className={styles.profile}>
           <AiFillBell size={30} />
           <div className={styles.placeholder}>
@@ -27,9 +27,8 @@ export default function PreviewLayout({ children }: Props) {
         </div>
       </nav>
       <div className={styles.listContainer}>
-        <div className={styles.leftSideBar}></div>
+        <aside></aside>
         <div className={styles.videoContainer}>{children}</div>
-        <div className={styles.rightSideBar}></div>
       </div>
     </div>
   );
