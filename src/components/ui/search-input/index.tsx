@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 
 import styles from './styles.module.css';
 import { FiSearch } from 'react-icons/fi';
 
-type Props = {};
+interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  onSearch?: () => void;
+}
 
-export default function SearchInput({}: Props) {
+export default function SearchInput({ onSearch, ...props }: SearchInputProps) {
   return (
     <div className={styles.searchInputContainer}>
-      <input className={styles.searchInput} placeholder='Search...' />
-      <div className={styles.searchIcon}>
+      <input className={styles.searchInput} {...props} />
+      <div className={styles.searchIcon} onClick={onSearch}>
         <FiSearch size={25} />
       </div>
     </div>

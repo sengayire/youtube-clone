@@ -1,25 +1,27 @@
 .layoutContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-}
-.listContainer {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-rows: 1fr 8fr;
 }
 .layoutHeader {
-  padding: 50px;
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  background: black;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  box-shadow: 0 1px 0 0 rgba(92, 92, 92, 0.383);
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+}
+.listContainer {
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  grid-row: 2/8;
+  column-gap: 30px;
+  overflow: scroll;
 }
 
-.leftSideBar {
-  padding: 4%;
-  height: auto;
-}
 .profilePicture {
   width: 50px;
   height: 50px;
@@ -27,14 +29,22 @@
 }
 .profile {
   display: flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
   gap: 10px;
 }
 
 @media (max-width: 390px) {
+  .listContainer {
+    grid-row: 1/8;
+    padding: 2rem 0;
+  }
   .layoutHeader {
     visibility: hidden;
-    padding: 0;
+  }
+}
+@media (min-width: 1700px) {
+  .listContainer {
+    padding: 2rem 0;
   }
 }
